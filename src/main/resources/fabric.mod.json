@@ -4,7 +4,7 @@
   "version": "${version}",
   "name": "Lunge Swap",
   "description": "Hold a hotkey to auto click and swap to your spear and back. Delay (5-100 ticks) is configurable in Mod Menu.",
-  "authors": ["You"],
+  "authors": ["_iniq"],
   "license": "CC0-1.0",
   "environment": "client",
   "entrypoints": {
