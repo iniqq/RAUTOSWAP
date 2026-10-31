@@ -20,7 +20,7 @@ public class LungeSwapConfigScreen extends Screen {
         LungeSwapConfig cfg = LungeSwapConfig.INSTANCE;
         int w = 220, x = this.width / 2 - w / 2, y = this.height / 2 - 50;
 
-        addRenderableWidget(new StringWidget(x, y - 24, w, 9, this.title, this.font).alignCenter());
+           addRenderableWidget(new StringWidget(x, y - 24, w, 9, this.title, this.font));
 
         addRenderableWidget(new TickSlider(x, y, w, 20, cfg.delayTicks));
 
