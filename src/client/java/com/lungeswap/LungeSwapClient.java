@@ -1,5 +1,6 @@
 package com.lungeswap;
 
+import com.lungeswap.mixin.MinecraftInvoker;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -99,9 +100,9 @@ public class LungeSwapClient implements ClientModInitializer {
         timer = 0;
     }
 
-    /** Queues a real left click, processed by the game like you pressing the attack button. */
+    /** Runs the game's own left-click routine with whatever slot is selected right now. */
     private static void clickAttack(Minecraft mc) {
-        KeyMapping.click(KeyMappingHelper.getBoundKeyOf(mc.options.keyAttack));
+        ((MinecraftInvoker) mc).lungeswap_startAttack();
     }
 
     private static int findSpearInHotbar(Minecraft mc) {
