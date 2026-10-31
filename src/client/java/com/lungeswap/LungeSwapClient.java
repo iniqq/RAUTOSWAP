@@ -1,6 +1,5 @@
 package com.lungeswap;
 
-import com.lungeswap.mixin.MinecraftInvoker;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -13,6 +12,8 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import org.lwjgl.glfw.GLFW;
 
+import java.lang.reflect.Method;
+
 public class LungeSwapClient implements ClientModInitializer {
     public static KeyMapping activateKey;
 
@@ -21,6 +22,7 @@ public class LungeSwapClient implements ClientModInitializer {
     private static int timer = 0;
     private static int originalSlot = -1;
     private static int spearSlot = -1;
+    private static Method startAttackMethod;
 
     @Override
     public void onInitializeClient() {
@@ -102,7 +104,15 @@ public class LungeSwapClient implements ClientModInitializer {
 
     /** Runs the game's own left-click routine with whatever slot is selected right now. */
     private static void clickAttack(Minecraft mc) {
-        ((MinecraftInvoker) mc).lungeswap_startAttack();
+        try {
+            if (startAttackMethod == null) {
+                startAttackMethod = Minecraft.class.getDeclaredMethod("startAttack");
+                startAttackMethod.setAccessible(true);
+            }
+            startAttackMethod.invoke(mc);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private static int findSpearInHotbar(Minecraft mc) {
